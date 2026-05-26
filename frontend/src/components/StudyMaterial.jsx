@@ -30,7 +30,7 @@ export default function StudyMaterial() {
   useEffect(() => {
     const fetchDB = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/study-material/db');
+        const response = await fetch('https://major-project-h9qn.onrender.com/api/study-material/db');
         if (response.ok) {
           const data = await response.json();
           setDb(data);
@@ -54,7 +54,7 @@ export default function StudyMaterial() {
     setDb(newDb);
     localStorage.setItem('STUDY_MATERIAL_DB', JSON.stringify(newDb));
     try {
-      await fetch('http://localhost:5000/api/study-material/db', {
+      await fetch('https://major-project-h9qn.onrender.com/api/study-material/db', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newDb)

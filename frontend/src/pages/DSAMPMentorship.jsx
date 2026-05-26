@@ -202,7 +202,7 @@ export default function DSAMPMentorship() {
   useEffect(() => {
     const fetchDB = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/mentorship/db');
+        const response = await fetch('https://major-project-h9qn.onrender.com/api/mentorship/db');
         if (response.ok) {
           const data = await response.json();
           setDb(data);
@@ -210,7 +210,7 @@ export default function DSAMPMentorship() {
           // If 404 or error, initialize with seed and push to DB
           const initialDb = seedDatabase();
           setDb(initialDb);
-          await fetch('http://localhost:5000/api/mentorship/db', {
+          await fetch('https://major-project-h9qn.onrender.com/api/mentorship/db', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(initialDb)
