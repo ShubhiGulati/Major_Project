@@ -7,6 +7,8 @@ import UserDashboard from "./pages/UserDashboard.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import ContributorsPage from "./pages/ContributorsPage.jsx";
+import DSAMPMentorship from "./pages/DSAMPMentorship.jsx";
+
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -98,6 +100,14 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contributors" element={<ContributorsPage />} />
+          
+          {/* DSAMP Mentorship Route */}
+          <Route path="/dsamp-mentorship" element={
+            <ProtectedRoute>
+              <DSAMPMentorship />
+            </ProtectedRoute>
+          } />
+
 
           {/* Catch all route - redirect to home based on auth status */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,172 +1,170 @@
 import React from 'react';
-import { Building2, Briefcase, DollarSign, Calendar, Award, Phone, Mail, Linkedin, Trash2 } from 'lucide-react';
+import { Building2, Briefcase, DollarSign, Calendar, Award, Phone, Mail, Linkedin, Trash2, CheckCircle2, AlertCircle, FileText, Lightbulb } from 'lucide-react';
 
 const ExperienceCard = ({ experience, isMyExperience = false, onDelete, currentUser }) => {
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'easy': return 'bg-green-100 text-green-700';
-      case 'medium': return 'bg-yellow-100 text-yellow-700';
-      case 'hard': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case 'easy': return 'text-emerald-600 bg-emerald-100 border-emerald-200';
+      case 'medium': return 'text-amber-600 bg-amber-100 border-amber-200';
+      case 'hard': return 'text-rose-600 bg-rose-100 border-rose-200';
+      default: return 'text-slate-600 bg-slate-100 border-slate-200';
     }
   };
 
-  const getCompanyTypeColor = (type) => {
-    return type === 'core' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700';
+  const getCompanyTypeBorder = (type) => {
+    return type === 'core' ? 'border-t-indigo-600' : 'border-t-purple-600';
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+    <div className={`group bg-white rounded-xl border-t-[4px] ${getCompanyTypeBorder(experience.companyType)} border-x border-b border-slate-200 shadow-lg shadow-slate-200/40 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col`}>
+      
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <h3 className="text-xl font-bold mb-1 flex items-center">
-              <Building2 className="mr-2" size={20} />
-              {experience.companyName}
-            </h3>
-            <p className="text-blue-100 text-sm flex items-center">
-              <Briefcase className="mr-1" size={14} />
-              {experience.role}
-            </p>
+      <div className="p-4 border-b border-dashed border-slate-100 relative overflow-hidden">
+        <div className="flex justify-between items-start mb-3">
+          <div className="flex items-center space-x-2.5">
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 shadow-inner ${experience.companyType === 'core' ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' : 'bg-purple-50 text-purple-600 border border-purple-100'}`}>
+              <Building2 size={20} />
+            </div>
+            <div>
+              <h3 className="text-lg font-black text-slate-900 leading-tight line-clamp-1">
+                {experience.companyName}
+              </h3>
+              <p className="text-xs font-bold text-slate-500 mt-0.5 flex items-center line-clamp-1">
+                <Briefcase className="mr-1" size={12} />
+                {experience.role}
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col items-end space-y-1">
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getCompanyTypeColor(experience.companyType)}`}>
+          <div className="flex flex-col items-end space-y-1.5 shrink-0 pl-2">
+            <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border shadow-sm ${experience.companyType === 'core' ? 'bg-indigo-600 text-white border-indigo-700' : 'bg-purple-600 text-white border-purple-700'}`}>
               {experience.companyType === 'core' ? 'Core' : 'Non-Core'}
             </span>
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(experience.difficulty)}`}>
-              {experience.difficulty.charAt(0).toUpperCase() + experience.difficulty.slice(1)}
+            <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border ${getDifficultyColor(experience.difficulty)}`}>
+              {experience.difficulty}
             </span>
           </div>
+        </div>
+        
+        <div className="flex items-center justify-between text-xs mt-3 bg-slate-50/80 p-2.5 rounded-lg border border-slate-100">
+          <div className="flex items-center space-x-1.5 overflow-hidden">
+            <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-[10px] shrink-0">
+              {experience.name.charAt(0)}
+            </div>
+            <span className="font-bold text-slate-800 truncate">{experience.name}</span>
+            <span className="text-slate-400 font-bold">•</span>
+            <span className="text-slate-500 font-medium truncate">{experience.department}</span>
+          </div>
+          <span className="text-slate-500 font-bold flex items-center bg-white px-1.5 py-0.5 rounded border border-slate-200 shrink-0 ml-2">
+            <Calendar size={10} className="mr-1" />
+            {experience.batch}
+          </span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        {/* Personal Info */}
-        <div className="mb-4 pb-4 border-b border-gray-100">
-          <div className="flex items-center justify-between text-sm">
-            <div>
-              <span className="font-semibold text-gray-700">{experience.name}</span>
-              <span className="text-gray-500 mx-2">•</span>
-              <span className="text-gray-600">{experience.department}</span>
+      <div className="p-4 flex-1 space-y-4">
+        
+        {/* Package Highlight */}
+        <div className="flex items-center justify-between bg-gradient-to-r from-emerald-50 to-white p-3 rounded-lg border border-emerald-100/60">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <DollarSign size={16} />
             </div>
-            <span className="text-gray-500 flex items-center">
-              <Calendar size={14} className="mr-1" />
-              {experience.batch}
-            </span>
-          </div>
-        </div>
-
-        {/* Package */}
-        <div className="mb-4">
-          <div className="flex items-center space-x-2 bg-green-50 p-3 rounded-lg">
-            <DollarSign className="text-green-600" size={20} />
             <div>
-              <p className="text-xs text-gray-600">Package</p>
-              <p className="text-lg font-bold text-green-700">{experience.package}</p>
+              <p className="text-[9px] text-emerald-600 font-black uppercase tracking-widest leading-none mb-1">Offered Package</p>
+              <p className="text-lg font-black text-slate-900 leading-none">{experience.package}</p>
             </div>
           </div>
+          <CheckCircle2 className="text-emerald-400 w-6 h-6 opacity-40" />
         </div>
 
         {/* Interview Rounds */}
-        <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-            <Award className="mr-1" size={16} />
-            Interview Process
+        <div>
+          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 flex items-center">
+            <Award className="mr-1.5 text-indigo-500" size={14} /> Interview Process
           </h4>
-          <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+          <p className="text-xs font-semibold text-slate-700 bg-indigo-50/40 p-3 rounded-lg border border-indigo-100/50 leading-relaxed">
             {experience.interviewRounds}
           </p>
         </div>
 
         {/* Technical Questions */}
         {experience.technicalQuestions && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">Technical Questions</h4>
-            <p className="text-sm text-gray-600 bg-blue-50 p-3 rounded-lg whitespace-pre-wrap">
+          <div>
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 flex items-center">
+              <FileText className="mr-1.5 text-blue-500" size={14} /> Technical Questions
+            </h4>
+            <div className="text-xs font-medium text-slate-700 bg-slate-50 p-3 rounded-lg border-l-2 border-l-blue-500 border-y border-r border-slate-100 whitespace-pre-wrap leading-relaxed max-h-32 overflow-y-auto custom-scrollbar">
               {experience.technicalQuestions}
-            </p>
+            </div>
           </div>
         )}
 
         {/* HR Questions */}
         {experience.hrQuestions && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">HR Questions</h4>
-            <p className="text-sm text-gray-600 bg-purple-50 p-3 rounded-lg whitespace-pre-wrap">
+          <div>
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 flex items-center">
+              <AlertCircle className="mr-1.5 text-purple-500" size={14} /> HR Questions
+            </h4>
+            <div className="text-xs font-medium text-slate-700 bg-slate-50 p-3 rounded-lg border-l-2 border-l-purple-500 border-y border-r border-slate-100 whitespace-pre-wrap leading-relaxed max-h-24 overflow-y-auto custom-scrollbar">
               {experience.hrQuestions}
-            </p>
+            </div>
           </div>
         )}
 
         {/* Tips */}
-        <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">💡 Tips & Advice</h4>
-          <p className="text-sm text-gray-600 bg-yellow-50 p-3 rounded-lg whitespace-pre-wrap">
+        <div>
+          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 flex items-center">
+            <Lightbulb className="mr-1.5 text-amber-500" size={14} /> Tips & Advice
+          </h4>
+          <div className="text-xs font-bold text-slate-800 bg-amber-50/50 p-3 rounded-lg border border-amber-200/50 whitespace-pre-wrap leading-relaxed">
             {experience.tips}
-          </p>
+          </div>
         </div>
+      </div>
 
+      {/* Footer / Actions */}
+      <div className="p-4 border-t border-dashed border-slate-100 bg-slate-50/50 mt-auto rounded-b-xl">
+        
         {/* Contact Info */}
         {(experience.phone || experience.email || experience.linkedin) && (
-          <div className="pt-4 border-t border-gray-100">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">Contact Information</h4>
-            <div className="flex flex-wrap gap-2">
+          <div className="mb-3 pb-3 border-b border-slate-200">
+            <div className="flex flex-wrap gap-1.5">
               {experience.phone && (
-                <a
-                  href={`tel:${experience.phone}`}
-                  className="flex items-center space-x-1 px-3 py-1.5 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm"
-                >
-                  <Phone size={14} />
-                  <span>{experience.phone}</span>
+                <a href={`tel:${experience.phone}`} className="flex items-center space-x-1 px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded flex-1 justify-center hover:border-emerald-300 hover:text-emerald-600 transition-colors text-[10px] font-bold shadow-sm">
+                  <Phone size={10} /> <span>Phone</span>
                 </a>
               )}
               {experience.email && (
-                <a
-                  href={`mailto:${experience.email}`}
-                  className="flex items-center space-x-1 px-3 py-1.5 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors text-sm"
-                >
-                  <Mail size={14} />
-                  <span>{experience.email}</span>
+                <a href={`mailto:${experience.email}`} className="flex items-center space-x-1 px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded flex-1 justify-center hover:border-rose-300 hover:text-rose-600 transition-colors text-[10px] font-bold shadow-sm">
+                  <Mail size={10} /> <span>Email</span>
                 </a>
               )}
               {experience.linkedin && (
-                <a
-                  href={experience.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors text-sm"
-                >
-                  <Linkedin size={14} />
-                  <span>LinkedIn</span>
+                <a href={experience.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded flex-1 justify-center hover:border-blue-300 hover:text-blue-600 transition-colors text-[10px] font-bold shadow-sm">
+                  <Linkedin size={10} /> <span>LinkedIn</span>
                 </a>
               )}
             </div>
           </div>
         )}
 
-        {/* Delete Button (only for own experiences) */}
-        {(isMyExperience || currentUser?.role === 'admin') && onDelete && (
-          <div className="pt-4 mt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between">
+          <div className="text-[9px] font-bold text-slate-400 tracking-widest">
+            {new Date(experience.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase()}
+          </div>
+          
+          {/* Delete Button */}
+          {(isMyExperience || currentUser?.role === 'admin') && onDelete && (
             <button
               onClick={() => onDelete(experience._id)}
-              className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+              className="flex items-center space-x-1 px-2 py-1 bg-rose-50 text-rose-600 rounded hover:bg-rose-100 hover:text-rose-700 transition-colors text-[10px] font-black border border-rose-100"
             >
-              <Trash2 size={16} />
-              <span>Delete Experience</span>
+              <Trash2 size={10} />
+              <span>Delete</span>
             </button>
-          </div>
-        )}
-      </div>
-
-      {/* Footer with timestamp */}
-      <div className="bg-gray-50 px-5 py-3 text-xs text-gray-500">
-        Shared on {new Date(experience.createdAt).toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        })}
+          )}
+        </div>
       </div>
     </div>
   );

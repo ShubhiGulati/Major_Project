@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Home, MessageSquare, LogOut, Menu, X, Loader } from 'lucide-react';
+import { Home, MessageSquare, LogOut, Menu, X, Loader, Users, BookOpen, Zap, GraduationCap } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import ShareExperienceModal from '../components/ShareExperienceModal';
 import ExperienceCard from '../components/ExperienceCard';
 import toast from 'react-hot-toast';
 import { experienceAPI } from '../services/api';
+import DSAMPMentorship from './DSAMPMentorship';
+import StudyMaterial from '../components/StudyMaterial';
+import HomePage from './HomePage';
+import SeedClub from './SeedClub';
+import AlumniContact from './AlumniContact';
+
 
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -77,7 +83,11 @@ const UserDashboard = () => {
 
   const menuItems = [
     { id: 'home', label: 'Home', icon: Home },
+    { id: 'seed-club', label: 'SEED Club', icon: Zap },
     { id: 'experiences', label: 'Shared Experiences', icon: MessageSquare },
+    { id: 'dsamp', label: 'DSAMP Mentorship', icon: Users },
+    { id: 'study-material', label: 'Study Material', icon: BookOpen },
+    { id: 'alumni', label: 'Alumni Network', icon: GraduationCap },
   ];
 
   return (
@@ -176,19 +186,21 @@ const UserDashboard = () => {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <main className={`flex-1 overflow-y-auto ${activeTab === 'dsamp' ? 'p-0 bg-slate-950' : 'p-6 bg-gray-50'}`}>
+          {activeTab === 'dsamp' && (
+            <DSAMPMentorship />
+          )}
+          {activeTab === 'study-material' && (
+            <StudyMaterial />
+          )}
           {activeTab === 'home' && (
-            <div className="max-w-7xl mx-auto">
-              <div className="bg-white rounded-lg shadow p-8 text-center">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">Welcome to E-SPARK!</h2>
-                <p className="text-gray-600 mb-6">
-                  Electrical Society for Progression, Academic Research & Knowledge
-                </p>
-                <div className="text-gray-500">
-                  Home page content coming soon...
-                </div>
-              </div>
-            </div>
+            <HomePage />
+          )}
+          {activeTab === 'seed-club' && (
+            <SeedClub />
+          )}
+          {activeTab === 'alumni' && (
+            <AlumniContact />
           )}
 
           {activeTab === 'experiences' && (
