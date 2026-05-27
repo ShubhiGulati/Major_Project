@@ -316,7 +316,7 @@ export default function DSAMPMentorship() {
     const newDb = seedDatabase();
     setDb(newDb);
     try {
-      await fetch('http://localhost:5000/api/mentorship/db', {
+      await fetch('https://major-project-h9qn.onrender.com/api/mentorship/db', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newDb)
