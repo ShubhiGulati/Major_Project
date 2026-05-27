@@ -231,7 +231,7 @@ export default function StudyMaterial() {
                       onClick={() => setSelectedSubject(subj)}
                       className="relative flex flex-col p-5 bg-white border border-slate-200/80 rounded-2xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all text-left group cursor-pointer"
                     >
-                      {user?.role === 'admin' && (
+                      {(user?.role === 'admin' || user?.email === 'shubhigulati25@gmail.com') && (
                         <button
                           onClick={(e) => handleDeleteSubject(e, subj.id)}
                           className="absolute top-4 right-4 p-1.5 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors z-10"
