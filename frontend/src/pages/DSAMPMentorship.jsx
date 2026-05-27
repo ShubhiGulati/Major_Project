@@ -25,28 +25,17 @@ const seedDatabase = () => {
   const initialDB = {
     mentors: [
       { id: "m1", name: "Shubhi", email: "shubhigulati25@gmail.com", year: 4, placement: "Google (SDE-1, 32 LPA)" },
-      { id: "m2", name: "Riya Sen", email: "riya.s@nitj.ac.in", year: 4, placement: "Microsoft (SWE, 28 LPA)" },
-      { id: "m3", name: "Sameer Joshi", email: "sameer.j@nitj.ac.in", year: 4, placement: "Amazon (SDE, 25 LPA)" },
-      { id: "m4", name: "Krishu", email: "krishu21@gmail.com", year: 4, placement: "Atlassian (SDE, 35 LPA)" },
-      { id: "m5", name: "Aman Gupta", email: "aman.g@gmail.com", year: 4, placement: "Flipkart (SDE-1, 26 LPA)" }
+      { id: "m4", name: "Krishu", email: "krishu21@gmail.com", year: 4, placement: "Atlassian (SDE, 35 LPA)" }
     ],
     mentees: [
       { id: "me1", name: "Karan Patel", email: "karandp.ee.23@nitj.ac.in", year: 3 },
       { id: "me2", name: "Ananya Sharma", email: "ananya.s@nitj.ac.in", year: 3 },
-      { id: "me3", name: "Rohan Dev", email: "rohan.d@nitj.ac.in", year: 3 },
-      { id: "me4", name: "Sneha Rao", email: "sneha.r@nitj.ac.in", year: 3 },
-      { id: "me5", name: "Vikas Kumar", email: "vikas.k@nitj.ac.in", year: 3 },
-      { id: "me6", name: "Ishita Goel", email: "ishita.g@nitj.ac.in", year: 3 },
       { id: "me7", name: "Mohan", email: "mohan@gmail.com", year: 3 },
       { id: "me8", name: "Priya Singh", email: "priya.s@gmail.com", year: 3 }
     ],
     pairings: [
       { id: "p1", mentorId: "m1", menteeId: "me1" },
-      { id: "p2", mentorId: "m1", menteeId: "me2" },
-      { id: "p3", mentorId: "m2", menteeId: "me3" },
-      { id: "p4", mentorId: "m2", menteeId: "me4" },
-      { id: "p5", mentorId: "m3", menteeId: "me5" },
-      { id: "p6", mentorId: "m3", menteeId: "me6" }
+      { id: "p2", mentorId: "m1", menteeId: "me2" }
     ],
     meetings: [
       {
@@ -60,16 +49,6 @@ const seedDatabase = () => {
         status: "completed"
       },
       {
-        id: "meet2",
-        title: "Placement Preparation & Resume Review Session",
-        mentorId: "m2",
-        date: "2026-05-18",
-        time: "15:00",
-        description: "Reviewing resume bullet points and star methodology for projects.",
-        link: "https://meet.google.com/xyz-pqrs-tuv",
-        status: "completed"
-      },
-      {
         id: "meet3",
         title: "System Design Basics & Low-Level Design Concepts",
         mentorId: "m1",
@@ -77,16 +56,6 @@ const seedDatabase = () => {
         time: "17:00",
         description: "Understanding design patterns, clean code principles, and designing parking lots.",
         link: "https://meet.google.com/def-ghij-klm",
-        status: "upcoming"
-      },
-      {
-        id: "meet4",
-        title: "Mock Interview Round: Arrays and Tree Traversal",
-        mentorId: "m2",
-        date: "2026-05-29",
-        time: "14:30",
-        description: "One-on-one mock interviews covering binary trees and sliding window algorithms.",
-        link: "https://meet.google.com/jkl-mnop-qrs",
         status: "upcoming"
       },
       {
@@ -102,9 +71,7 @@ const seedDatabase = () => {
     ],
     attendance: [
       { id: "a1", meetingId: "meet1", menteeId: "me1", status: "present" },
-      { id: "a2", meetingId: "meet1", menteeId: "me2", status: "present" },
-      { id: "a3", meetingId: "meet2", menteeId: "me3", status: "present" },
-      { id: "a4", meetingId: "meet2", menteeId: "me4", status: "absent" }
+      { id: "a2", meetingId: "meet1", menteeId: "me2", status: "present" }
     ],
     tests: [
       {
@@ -141,25 +108,6 @@ const seedDatabase = () => {
         ]
       },
       {
-        id: "t2",
-        title: "Binary Tree Depth & LCA Challenge",
-        mentorId: "m2",
-        duration: 45,
-        description: "Covers standard tree properties and Lowest Common Ancestor logic.",
-        status: "completed",
-        questions: [
-          {
-            id: "q3",
-            title: "Maximum Depth of Binary Tree",
-            description: "Given the root of a binary tree, return its maximum depth.",
-            difficulty: "Easy",
-            points: 30,
-            starterCode: `function maxDepth(root) {\n  // Write your code here\n  if (root === null) return 0;\n  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));\n}`,
-            testCases: []
-          }
-        ]
-      },
-      {
         id: "t3",
         title: "Graph Traversal & Shortest Path",
         mentorId: "m4",
@@ -179,10 +127,7 @@ const seedDatabase = () => {
         ]
       }
     ],
-    submissions: [
-      { id: "sub1", testId: "t2", menteeId: "me3", score: 30, maxScore: 30, status: "evaluated", submittedAt: "2026-05-19T18:00:00Z" },
-      { id: "sub2", testId: "t2", menteeId: "me4", score: 0, maxScore: 30, status: "absent", submittedAt: "" }
-    ],
+    submissions: [],
     feedbacks: []
   };
 
