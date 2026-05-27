@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 const frontendURL = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(
   cors({
-    origin: [frontendURL, "http://localhost:5173", "http://localhost:5174"],
+    origin: [frontendURL, "http://localhost:5173", "http://localhost:5174", "https://major-project-xi-opal.vercel.app"],
     credentials: true,
   })
 );
