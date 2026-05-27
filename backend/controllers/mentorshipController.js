@@ -1,7 +1,16 @@
 import MentorshipDB from "../models/MentorshipDB.js";
+import mongoose from 'mongoose';
+
+const isMongoConnected = () => mongoose.connection.readyState === 1;
 
 export const getMentorshipDB = async (req, res) => {
   try {
+    if (!isMongoConnected()) {
+      if (!global.inMemoryMentorshipDB) {
+        return res.status(404).json({ message: "Mentorship DB not found" });
+      }
+      return res.json(global.inMemoryMentorshipDB);
+    }
     let db = await MentorshipDB.findOne();
     if (!db) {
       return res.status(404).json({ message: "Mentorship DB not found" });
@@ -14,6 +23,10 @@ export const getMentorshipDB = async (req, res) => {
 
 export const updateMentorshipDB = async (req, res) => {
   try {
+    if (!isMongoConnected()) {
+      global.inMemoryMentorshipDB = req.body;
+      return res.json({ message: "Mentorship DB updated successfully", data: global.inMemoryMentorshipDB });
+    }
     let db = await MentorshipDB.findOne();
     if (!db) {
       db = new MentorshipDB({ data: req.body });
