@@ -131,6 +131,42 @@ export const getAllExperiences = async (req, res) => {
             difficulty: "easy",
             createdAt: new Date(),
             likes: 5, views: 18
+          },
+          {
+            _id: 'sample4',
+            user: { _id: 'bot4', name: 'Vanshika', email: 'vanshika@example.com' },
+            name: "Vanshika",
+            batch: "2024",
+            department: "Computer Science",
+            companyName: "Microsoft",
+            companyType: "core",
+            package: "51 LPA",
+            role: "Software Engineer",
+            interviewRounds: "1 OA + 3 Tech + 1 AA",
+            technicalQuestions: "- DSA (Trees, Graphs, DP)\n- System Design",
+            hrQuestions: "Why Microsoft?",
+            tips: "Practice medium/hard leetcode questions.",
+            difficulty: "hard",
+            createdAt: new Date(),
+            likes: 20, views: 80
+          },
+          {
+            _id: 'sample5',
+            user: { _id: 'bot5', name: 'Hitesh', email: 'hitesh@example.com' },
+            name: "Hitesh",
+            batch: "2024",
+            department: "Information Technology",
+            companyName: "Optum",
+            companyType: "core",
+            package: "15 LPA",
+            role: "Software Engineer",
+            interviewRounds: "1 OA + 2 Tech + 1 HR",
+            technicalQuestions: "- DBMS Queries\n- React/Node.js concepts",
+            hrQuestions: "What are your strengths and weaknesses?",
+            tips: "Be very strong with CS fundamentals and your resume projects.",
+            difficulty: "medium",
+            createdAt: new Date(),
+            likes: 15, views: 55
           }
         ];
       }
