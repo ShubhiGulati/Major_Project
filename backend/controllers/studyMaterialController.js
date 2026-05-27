@@ -1,4 +1,7 @@
 import StudyMaterialDB from "../models/StudyMaterialDB.js";
+import mongoose from 'mongoose';
+
+const isMongoConnected = () => mongoose.connection.readyState === 1;
 
 // Initial empty state for the 8 semesters
 const defaultData = {
@@ -16,6 +19,13 @@ const defaultData = {
 
 export const getStudyMaterialDB = async (req, res) => {
   try {
+    if (!isMongoConnected()) {
+      if (!global.inMemoryStudyMaterialDB) {
+        global.inMemoryStudyMaterialDB = defaultData;
+      }
+      return res.json(global.inMemoryStudyMaterialDB);
+    }
+
     let db = await StudyMaterialDB.findOne();
     if (!db) {
       // Auto-initialize if not found
@@ -30,6 +40,11 @@ export const getStudyMaterialDB = async (req, res) => {
 
 export const updateStudyMaterialDB = async (req, res) => {
   try {
+    if (!isMongoConnected()) {
+      global.inMemoryStudyMaterialDB = req.body;
+      return res.json({ message: "Study Material DB updated successfully in memory", data: global.inMemoryStudyMaterialDB });
+    }
+
     let db = await StudyMaterialDB.findOne();
     if (!db) {
       db = new StudyMaterialDB({ data: req.body });
