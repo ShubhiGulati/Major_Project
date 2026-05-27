@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, FileText, Plus, ChevronLeft, Link as LinkIcon, Loader, GraduationCap, ArrowRight } from 'lucide-react';
+import { BookOpen, FileText, Plus, ChevronLeft, Link as LinkIcon, Loader, GraduationCap, ArrowRight, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../hooks/useAuth';
 
@@ -62,6 +62,16 @@ export default function StudyMaterial() {
     } catch (err) {
       console.error("Failed to sync DB to backend", err);
     }
+  };
+
+  const handleDeleteSubject = (e, subjectId) => {
+    e.stopPropagation();
+    if (!window.confirm("Are you sure you want to delete this subject? This will delete all its study materials.")) return;
+    
+    const newDb = { ...db };
+    newDb.semesters[selectedSemester].subjects = newDb.semesters[selectedSemester].subjects.filter(s => s.id !== subjectId);
+    updateDb(newDb);
+    toast.success("Subject deleted successfully!");
   };
 
   const handleAddSubject = (e) => {
@@ -216,12 +226,21 @@ export default function StudyMaterial() {
                   </div>
                 ) : (
                   subjects.map(subj => (
-                    <button 
+                    <div 
                       key={subj.id}
                       onClick={() => setSelectedSubject(subj)}
-                      className="flex flex-col p-5 bg-white border border-slate-200/80 rounded-2xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all text-left group"
+                      className="relative flex flex-col p-5 bg-white border border-slate-200/80 rounded-2xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all text-left group cursor-pointer"
                     >
-                      <h3 className="font-bold text-slate-800 text-lg mb-4 group-hover:text-blue-600 transition-colors line-clamp-2">
+                      {user?.role === 'admin' && (
+                        <button
+                          onClick={(e) => handleDeleteSubject(e, subj.id)}
+                          className="absolute top-4 right-4 p-1.5 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors z-10"
+                          title="Delete Subject"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                      <h3 className="font-bold text-slate-800 text-lg mb-4 group-hover:text-blue-600 transition-colors line-clamp-2 pr-8">
                         {subj.name}
                       </h3>
                       <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-3">
@@ -235,7 +254,7 @@ export default function StudyMaterial() {
                         </div>
                         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
                       </div>
-                    </button>
+                    </div>
                   ))
                 )}
               </div>

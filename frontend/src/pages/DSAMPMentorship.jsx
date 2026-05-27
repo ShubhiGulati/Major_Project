@@ -3,7 +3,7 @@ import {
   Users, Calendar, CheckSquare, Code, Award, TrendingUp, 
   Plus, Link as LinkIcon, Play, CheckCircle, XCircle, AlertCircle, 
   BookOpen, ArrowRight, Clock, Shield, Activity, UserPlus, 
-  RefreshCw, Briefcase, FileText, Check, ChevronRight, Mail
+  RefreshCw, Briefcase, FileText, Check, ChevronRight, Mail, Trash2
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../hooks/useAuth';
@@ -324,6 +324,30 @@ export default function DSAMPMentorship() {
       toast.success("Database restored to seed settings! 🔄");
     } catch (err) {
       toast.error("Failed to reset backend DB");
+    }
+  };
+
+  // Delete Mentorship Group
+  const handleDeleteGroup = async (mentorId) => {
+    if (!window.confirm("Are you sure you want to delete this mentorship group? This will remove the mentor and all their pairings, meetings, and tests.")) return;
+    
+    const newDb = { ...db };
+    newDb.mentors = newDb.mentors.filter(m => m.id !== mentorId);
+    newDb.pairings = newDb.pairings.filter(p => p.mentorId !== mentorId);
+    newDb.meetings = newDb.meetings.filter(m => m.mentorId !== mentorId);
+    newDb.tests = newDb.tests.filter(t => t.mentorId !== mentorId);
+    
+    setDb(newDb);
+    localStorage.setItem(SEED_DATABASE_KEY, JSON.stringify(newDb));
+    try {
+      await fetch('https://major-project-h9qn.onrender.com/api/mentorship/db', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDb)
+      });
+      toast.success("Mentorship group deleted!");
+    } catch (err) {
+      console.error("Failed to sync DB to backend", err);
     }
   };
 
@@ -1728,6 +1752,7 @@ export default function DSAMPMentorship() {
                         <th className="py-2.5 px-3">Company Details</th>
                         <th className="py-2.5 px-3">Mentees assigned (3rd Year)</th>
                         <th className="py-2.5 px-3 text-center">Meetings Conducted</th>
+                        <th className="py-2.5 px-3 text-center">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800 text-xs">
@@ -1757,6 +1782,15 @@ export default function DSAMPMentorship() {
                             </td>
                             <td className="py-3 px-3 text-center font-bold text-indigo-600">
                               {meetingsConducted}
+                            </td>
+                            <td className="py-3 px-3 text-center">
+                              <button 
+                                onClick={() => handleDeleteGroup(mentor.id)}
+                                className="p-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 rounded-lg transition-colors"
+                                title="Delete Group"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
                             </td>
                           </tr>
                         );
