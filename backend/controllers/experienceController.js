@@ -77,7 +77,62 @@ export const getAllExperiences = async (req, res) => {
     } else {
       // In-memory store
       if (!global.inMemoryExperiences) {
-        global.inMemoryExperiences = [];
+        global.inMemoryExperiences = [
+          {
+            _id: 'sample1',
+            user: { _id: 'bot1', name: 'Aman Sharma', email: 'bot1@example.com' },
+            name: "Aman Sharma",
+            batch: "2024",
+            department: "Computer Science",
+            companyName: "Google",
+            companyType: "core",
+            package: "35 LPA",
+            role: "Software Engineer",
+            interviewRounds: "1 OA + 3 Tech + 1 HR",
+            technicalQuestions: "- Graph algorithms (Dijkstra's)\n- System design of a chat application",
+            hrQuestions: "Why do you want to work at Google?",
+            tips: "Master dynamic programming and graphs. Keep communicating your thought process.",
+            difficulty: "hard",
+            createdAt: new Date(),
+            likes: 12, views: 45
+          },
+          {
+            _id: 'sample2',
+            user: { _id: 'bot2', name: 'Priya Singh', email: 'bot2@example.com' },
+            name: "Priya Singh",
+            batch: "2023",
+            department: "Electronics",
+            companyName: "Texas Instruments",
+            companyType: "core",
+            package: "22 LPA",
+            role: "Hardware Engineer",
+            interviewRounds: "1 Online Test + 2 Tech Interviews + 1 Managerial",
+            technicalQuestions: "- RC circuit transients\n- Operational amplifiers detailed design",
+            hrQuestions: "Describe a project where you failed and what you learned.",
+            tips: "Be very strong with your core subjects and circuit diagrams.",
+            difficulty: "medium",
+            createdAt: new Date(),
+            likes: 8, views: 32
+          },
+          {
+            _id: 'sample3',
+            user: { _id: 'bot3', name: 'Rahul Verma', email: 'bot3@example.com' },
+            name: "Rahul Verma",
+            batch: "2024",
+            department: "Information Technology",
+            companyName: "TCS Digital",
+            companyType: "non-core",
+            package: "7.5 LPA",
+            role: "System Engineer",
+            interviewRounds: "1 Aptitude + 1 Tech + 1 HR",
+            technicalQuestions: "- SQL Joins\n- OOPs concepts in Java\n- Reverse a string",
+            hrQuestions: "Are you willing to relocate?",
+            tips: "Basic DSA and strong OOPs concepts are enough.",
+            difficulty: "easy",
+            createdAt: new Date(),
+            likes: 5, views: 18
+          }
+        ];
       }
       experiences = global.inMemoryExperiences.sort((a, b) => 
         new Date(b.createdAt) - new Date(a.createdAt)
